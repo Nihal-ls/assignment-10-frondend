@@ -1,0 +1,8 @@
+@import "tailwindcss";
+ @plugin "daisyui" {
+   themes: light --prefersdark, dark --default;
+ }
+
+ .active{
+  @apply underline text-xl
+ }
