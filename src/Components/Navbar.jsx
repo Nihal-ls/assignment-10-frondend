@@ -5,7 +5,6 @@ import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 const Navbar = () => {
     const { user, signOutuser } = use(AuthContext)
-    console.log(user.photoURL);
     const Navlinks = <>
         <li className='text-lg'><NavLink to='/'>Home</NavLink></li>
         <li className='text-lg '><NavLink to='/all-habits'>Browse Public Habits</NavLink></li>
@@ -25,7 +24,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100 container mx-auto rounded-full py-3 px-6 mt-5 shadow-sm">
+            <div className="navbar sticky bg-base-100 container mx-auto rounded-full py-3 px-6 mt-5 shadow-sm">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -60,11 +59,11 @@ const Navbar = () => {
                                         <div tabIndex={0} role="button" className=" m-1">
                                             <img
                                                 className='Border-2 rounded-full w-[40px] h-[40px] '
-                                                src={user.photoURL} alt="" />
+                                                src={user? user?.photoURL :''} alt="" />
                                         </div>
                                         <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-80  p-2 shadow-sm">
-                                            <li className='text-lg font-bold my-3'>Name: {user.displayName}</li>
-                                            <li className='text-md font-semibold mb-3'>Email: {user.email}</li>
+                                            <li className='text-lg font-bold my-3'>Name: {user? user.displayName: ''}</li>
+                                            <li className='text-md font-semibold mb-3'>Email: {user? user.email: ''}</li>
                                             <li><button
                                                 onClick={handleSignout}
                                                 className='btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400  '>

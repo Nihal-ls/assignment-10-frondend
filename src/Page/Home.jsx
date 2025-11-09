@@ -2,9 +2,12 @@ import React from 'react';
 import bannerbg from '../assets/bannerBg.jpg'
 import { motion } from "framer-motion";
 import { FaClock, FaHeart, FaRegCheckCircle, FaRocket } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
+import Habitcard from '../Components/Habitcard';
 
 const Home = () => {
+    const data = useLoaderData()
+    console.log(data)
     return (
         <div>
             <div
@@ -69,9 +72,14 @@ const Home = () => {
             </div>
               
               <div className="Container mx-auto">
-                <h1 className='text-center text-3xl font-bold mt-5'>Featured Habits</h1>
-              </div>
-
+                <h1 className='text-center text-3xl font-bold mt-5 '>Featured Habits</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto mt-10 px-30">
+                    {
+                        data.map(habit => <Habitcard habit={habit}></Habitcard>)
+                    }
+                </div>
+               </div>
+              
         </div>
     );
 };

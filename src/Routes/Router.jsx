@@ -12,6 +12,7 @@ const Router = createBrowserRouter([
         children: [
             {
                 index: true,
+                loader: () => fetch('http://localhost:3000/featuredHabits'),
                 Component: Home,
 
             },
