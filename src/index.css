@@ -4,5 +4,5 @@
  }
 
  .active{
-  @apply underline text-xl
+  @apply  scale-115 transition ease-in-out font-bold text-blue-400
  }
