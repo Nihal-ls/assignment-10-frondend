@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../Layout/RootLayout";
 import Home from "../Page/Home";
 import Allhabits from "../Page/Allhabits";
+import Register from "../Page/Register";
+import Login from "../Page/Login";
 
 const Router = createBrowserRouter([
     {
@@ -16,6 +18,16 @@ const Router = createBrowserRouter([
             {
                 path: '/all-habits',
                 Component: Allhabits,
+
+            },
+            {
+                path: '/register',
+                Component: Register,
+
+            },
+            {
+                path: '/login',
+                Component: Login,
 
             },
         ]

@@ -2,6 +2,7 @@ import React from 'react';
 import bannerbg from '../assets/bannerBg.jpg'
 import { motion } from "framer-motion";
 import { FaClock, FaHeart, FaRegCheckCircle, FaRocket } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const Home = () => {
     return (
@@ -22,7 +23,7 @@ const Home = () => {
                         Build Better Habits, With Us!
                     </motion.h1>
                     <motion.p
-                        className="mt-3 text-gray-500 text-lg "
+                        className="mt-3 text-gray-500 flex flex-col text-lg "
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -30,6 +31,8 @@ const Home = () => {
                         Stay consistent, track your progress, and achieve your <br /> goals effortlessly.
                         Our habit tracker helps <br /> you turn small actions into lasting routines,
                         keeping you motivated every step of the way.
+                        <Link to='/register' className="btn w-40 mx-auto mt-5
+                     text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7 ">Get started</Link>
                     </motion.p>
                 </div>
             </div>
@@ -64,6 +67,11 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+              
+              <div className="Container mx-auto">
+                <h1 className='text-center text-3xl font-bold mt-5'>Featured Habits</h1>
+              </div>
+
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import logoImg from '../assets/logo.jpg'
 const Navbar = () => {
 
@@ -35,9 +35,13 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-3">
-                    <a className="btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400   ">Login</a>
-                    <a className="btn 
-                     text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7 ">Signup</a>
+                    <Link to='/login'>
+                     <button className="btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400   ">Login</button>
+                    </Link>
+                    <Link to='/register'>
+                    <button className="btn 
+                     text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7 ">Signup</button>
+                    </Link>
                 </div>
             </div>
         </div>
