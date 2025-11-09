@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import logoImg from '../assets/logo.jpg'
+import { AuthContext } from '../Context/AuthContext';
+import Swal from 'sweetalert2';
 const Navbar = () => {
-
+    const { user, signOutuser } = use(AuthContext)
     const Navlinks = <>
         <li className='text-lg'><NavLink to='/'>Home</NavLink></li>
         <li className='text-lg '><NavLink to='/all-habits'>Browse Public Habits</NavLink></li>
     </>
+    const handleSignout = () => {
+        signOutuser()
+            .then(res => {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "You successfully Logged Out",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+    }
 
     return (
         <div>
@@ -35,13 +49,22 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-3">
-                    <Link to='/login'>
-                     <button className="btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400   ">Login</button>
-                    </Link>
-                    <Link to='/register'>
-                    <button className="btn 
+                    {
+                        user ? <button
+                            onClick={handleSignout}
+                            className='btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400  '>SignOUt</button>
+
+                            :
+                            <div className="space-x-2">
+                                <Link to='/login'>
+                                    <button className="btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400   ">Login</button>
+                                </Link>
+                                <Link to='/register'>
+                                    <button className="btn 
                      text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7 ">Signup</button>
-                    </Link>
+                                </Link>
+                            </div>
+                    }
                 </div>
             </div>
         </div>

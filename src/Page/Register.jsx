@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { use } from 'react';
 import bgImg from '../assets/Authbg.jpg'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
+import Swal from 'sweetalert2';
 const Register = () => {
+    const { signInwithGoogle } = use(AuthContext)
+    const navigate = useNavigate()
     const handleGoogleBtn = () => {
-        console.log('logged');
+        signInwithGoogle()
+            .then((res) => {
+                console.log(res);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Account Creatd Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate("/")
+            })
     }
 
 
