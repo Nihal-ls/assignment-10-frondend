@@ -66,7 +66,7 @@ const Myhabits = () => {
                 <div className="">
                     <h1 className='text-xl font-bold'>Habit Name:{habit?.habit_name}</h1>
                     <button className='btn bg-green-400 rounded-md px-7 mt-3 font-bold text-white'>Mark Complete</button>
-                    <button className='btn bg-primary rounded-md px-7 mt-3 text-white ml-3 font-semibold'>Update</button>
+                    <Link to={`/updatehabit/${habit._id}`} className='btn bg-primary rounded-md px-7 mt-3 text-white ml-3 font-semibold'>Update</Link>
 
                     <button onClick={handleDelete} className='btn bg-transparent rounded-md px-7 mt-3 text-red-500 border-red-500 hover:bg-red-500 hover:text-white ml-3'>Delete</button>
                 </div>

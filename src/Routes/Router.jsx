@@ -8,6 +8,7 @@ import Viewdetails from "../Page/Viewdetails";
 import PrivateRouter from "./PrivateRouter";
 import Addhabits from "../Page/Addhabits";
 import Myhabits from "../Page/Myhabits";
+import UpdateHabit from "../Page/UpdateHabit";
 
 const Router = createBrowserRouter([
     {
@@ -47,15 +48,22 @@ const Router = createBrowserRouter([
                 path: '/addhabit',
                 loader: () => fetch('http://localhost:3000/Habits'),
                 element: <PrivateRouter>
-                  <Addhabits/>
+                    <Addhabits />
                 </PrivateRouter>
             },
             {
                 path: '/myhabits',
                 loader: () => fetch('http://localhost:3000/Habits'),
                 element: <PrivateRouter>
-                    <Myhabits/> 
-                 </PrivateRouter>
+                    <Myhabits />
+                </PrivateRouter>
+            },
+            {
+                path: '/updatehabit/:id',
+                loader: () => fetch('http://localhost:3000/Habits'),
+                element: <PrivateRouter>
+                    <UpdateHabit></UpdateHabit>
+                </PrivateRouter>
             },
         ]
     }

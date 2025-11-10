@@ -1,27 +1,30 @@
 import React, { use } from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router';
 
-const Addhabits = () => {
-    const { user } = use(AuthContext)
+const UpdateHabit = () => {
+    const { id } = useParams()
     const navigate = useNavigate()
+    console.log(id);
+    const data = useLoaderData()
+    const clickedhabit = data.find(habit => habit._id == id)
+    const { user } = use(AuthContext)
+    console.log(clickedhabit);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const formData = {
-            creator_name: e.target.name.value,
             habit_name: e.target.name.value,
             category: e.target.category.value,
             description: e.target.description.value,
             animated_image: e.target.photo.value,
-            created_at: new Date(),
             remind_time: e.target.time.value,
-            user_email: user.email
 
         }
         console.log(formData.category);
-        fetch('http://localhost:3000/Habits', {
-            method: 'POST',
+        fetch(`http://localhost:3000/Habits/${id}`, {
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -33,7 +36,7 @@ const Addhabits = () => {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Habit added successfully",
+                    title: "habit Updated successfully",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -45,28 +48,30 @@ const Addhabits = () => {
     return (
         <div>
             <div className="hero  min-h-screen">
-                <div className="card bg-base-100  w-full max-w-sm shrink-0 shadow-2xl">
-                    <h1 className="text-3xl font-bold text-center pt-10 px-10">Add Your habit!</h1>
+                <div className="card bg-base-100 my-10  w-full max-w-sm shrink-0 shadow-2xl">
+                    <h1 className="text-3xl font-bold text-center pt-10 px-10">Update Your habit!</h1>
                     <div className="card-body">
                         <form onSubmit={handleSubmit} className="fieldset">
-                            {/* Name */}
-                            <label className="label">Name</label>
-                            <input name='name' type="text"
-                                readOnly
+                            {/* user Name */}
+                            <label className="label">User Name</label>
+                            <input name='username' readOnly type="text"
+                                className="input"
                                 defaultValue={user.displayName}
-                                className="input" placeholder="Name" />
+                                placeholder="Habit Name" />
                             {/* email */}
                             <label className="label">Email</label>
-                            <input name='email' type="email"
-                                readOnly
+                            <input name='email' readOnly type="email"
+                                className="input"
                                 defaultValue={user.email}
-                                className="input" placeholder="Email" />
+                                placeholder="Habit Name" />
                             {/* Habit Title */}
                             <label className="label">Habit Title</label>
-                            <input name='habitTitle' type="text"
-                                className="input" placeholder="Habit Name" />
+                            <input name='name' type="text"
+                                className="input"
+                                defaultValue={clickedhabit.habit_name}
+                                placeholder="Habit Name" />
                             {/* category */}
-                            <select name="category" className='border-1 w-80 border-gray-300 p-3 rounded-md' id="">
+                            <select name="category" defaultValue={clickedhabit.category} className='border-1 w-80 border-gray-300 p-3 rounded-md' id="">
                                 <option defaultChecked disabled value="">Category</option>
                                 <option defaultChecked value="Morning">Morning</option>
                                 <option defaultChecked value="Work">Work</option>
@@ -76,7 +81,9 @@ const Addhabits = () => {
                             </select>
                             {/* Habit Title */}
                             <label className="label">Habit Description</label>
-                            <input name='description' type="text"
+                            <input name='description'
+                                defaultValue={clickedhabit.description}
+                                type="text"
                                 className="input" placeholder="Habit Description" />
 
                             {/* reminder time */}
@@ -84,12 +91,15 @@ const Addhabits = () => {
                             <input
                                 name='time'
                                 type="time"
+                                defaultValue={clickedhabit.remind_time}
                                 className="border border-gray-300 p-2 rounded w-80"
                             />
                             {/* Image */}
                             <label className="label">Image</label>
                             <input name='photo' type="url"
-                                className="input" placeholder="Habit Image" />
+                                className="input"
+                                defaultValue={clickedhabit.animated_image}
+                                placeholder="Habit Image" />
                             <button className="btn btn-neutral mt-4">Add Habit</button>
                         </form>
                     </div>
@@ -99,4 +109,4 @@ const Addhabits = () => {
     );
 };
 
-export default Addhabits;
+export default UpdateHabit;
