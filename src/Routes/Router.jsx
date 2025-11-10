@@ -5,6 +5,9 @@ import Allhabits from "../Page/Allhabits";
 import Register from "../Page/Register";
 import Login from "../Page/Login";
 import Viewdetails from "../Page/Viewdetails";
+import PrivateRouter from "./PrivateRouter";
+import Addhabits from "../Page/Addhabits";
+import Myhabits from "../Page/Myhabits";
 
 const Router = createBrowserRouter([
     {
@@ -34,15 +37,25 @@ const Router = createBrowserRouter([
 
             },
             {
-                path: '/login',
-                Component: Login,
-
-            },
-            {
                 path: '/view-details/:id',
                 loader: () => fetch('http://localhost:3000/Habits'),
-                Component: Viewdetails,
-
+                element: <PrivateRouter>
+                    <Viewdetails />
+                </PrivateRouter>
+            },
+            {
+                path: '/addhabit',
+                loader: () => fetch('http://localhost:3000/Habits'),
+                element: <PrivateRouter>
+                  <Addhabits/>
+                </PrivateRouter>
+            },
+            {
+                path: '/myhabits',
+                loader: () => fetch('http://localhost:3000/Habits'),
+                element: <PrivateRouter>
+                    <Myhabits/> 
+                 </PrivateRouter>
             },
         ]
     }

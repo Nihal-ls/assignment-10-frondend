@@ -8,6 +8,8 @@ const Navbar = () => {
     const Navlinks = <>
         <li className='text-lg'><NavLink to='/'>Home</NavLink></li>
         <li className='text-lg '><NavLink to='/all-habits'>Browse Public Habits</NavLink></li>
+        <li className='text-lg '><NavLink to='/myhabits'>My Habits</NavLink></li>
+        <li className='text-lg '><NavLink to='/addhabit'>Add Habit</NavLink></li>
     </>
     const handleSignout = () => {
         signOutuser()
@@ -59,11 +61,11 @@ const Navbar = () => {
                                         <div tabIndex={0} role="button" className=" m-1">
                                             <img
                                                 className='Border-2 rounded-full w-[40px] h-[40px] '
-                                                src={user? user?.photoURL :''} alt="" />
+                                                src={user ? user?.photoURL : ''} alt="" />
                                         </div>
                                         <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-80  p-2 shadow-sm">
-                                            <li className='text-lg font-bold my-3'>Name: {user? user.displayName: ''}</li>
-                                            <li className='text-md font-semibold mb-3'>Email: {user? user.email: ''}</li>
+                                            <li className='text-lg font-bold my-3'>Name: {user ? user.displayName : ''}</li>
+                                            <li className='text-md font-semibold mb-3'>Email: {user ? user.email : ''}</li>
                                             <li><button
                                                 onClick={handleSignout}
                                                 className='btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400  '>
@@ -73,8 +75,6 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
-
-
                             :
                             <div className="space-x-2">
                                 <Link to='/login'>

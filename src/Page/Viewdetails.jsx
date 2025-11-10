@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
 
 const Viewdetails = () => {
@@ -7,7 +6,8 @@ const Viewdetails = () => {
     const data = useLoaderData()
     const clickedhabit = data.find(habit => habit._id == id)
     console.log(clickedhabit);
-    const { habit_name, description, user_email, animated_image, category, creator_name, status } = clickedhabit
+    const { habit_name, description, _id, user_email, animated_image, category, creator_name, status } = clickedhabit
+
     return (
         <div>
             <h1 className='text-center text-3xl font-bold mt-10'>Details</h1>
@@ -29,7 +29,9 @@ const Viewdetails = () => {
                         <p className='font-bold text-lg mt-5'>Creator: (Creator Information Is private)</p>
                     }
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary mt-5">Mark As Complete</button>
+                        <button  className="btn btn-primary mt-5">
+                            <input type="checkbox" />
+                            Mark As Complete</button>
                     </div>
                 </div>
             </div>
