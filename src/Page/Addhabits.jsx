@@ -18,19 +18,19 @@ const Addhabits = () => {
 
         }
         console.log(formData.category);
-        // fetch('http://localhost:3000/Habits', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(formData)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data)
-        //         alert('added successfully')
-        //     })
-        //     .catch(err => console.log(err))
+        fetch('http://localhost:3000/Habits', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                alert('added successfully')
+            })
+            .catch(err => console.log(err))
     }
 
     return (
