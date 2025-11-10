@@ -4,6 +4,7 @@ import Home from "../Page/Home";
 import Allhabits from "../Page/Allhabits";
 import Register from "../Page/Register";
 import Login from "../Page/Login";
+import Viewdetails from "../Page/Viewdetails";
 
 const Router = createBrowserRouter([
     {
@@ -18,6 +19,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/all-habits',
+                loader: () => fetch('http://localhost:3000/Habits'),
                 Component: Allhabits,
 
             },
@@ -29,6 +31,17 @@ const Router = createBrowserRouter([
             {
                 path: '/login',
                 Component: Login,
+
+            },
+            {
+                path: '/login',
+                Component: Login,
+
+            },
+            {
+                path: '/view-details/:id',
+                loader: () => fetch('http://localhost:3000/Habits'),
+                Component: Viewdetails,
 
             },
         ]

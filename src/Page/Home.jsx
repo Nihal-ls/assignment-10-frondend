@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaClock, FaHeart, FaRegCheckCircle, FaRocket } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router';
 import Habitcard from '../Components/Habitcard';
+import Slider from '../Components/Slider';
 
 const Home = () => {
     const data = useLoaderData()
@@ -79,7 +80,10 @@ const Home = () => {
                     }
                 </div>
                </div>
-              
+               <h1 className='text-center text-3xl font-bold mt-10'>Our Packages</h1>
+              <div>
+                <Slider/>
+              </div>
         </div>
     );
 };
