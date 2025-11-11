@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const Habitcard = ({ habit }) => {
-    const {animated_image,habit_name,creator_name,status,description,_id}= habit
+    const {animated_image,habit_name,creator_name,status,description,_id,category}= habit
    const shortText = description.split(" ").slice(0, 10).join(" ") + "...";
   console.log(shortText);
     return (
@@ -15,6 +15,7 @@ const Habitcard = ({ habit }) => {
                 <div className="card-body ">
                     <h2 className="card-title text-xl">{habit_name}</h2>
                     <p>{shortText}</p>
+                    <p className='bg-gray-100 rounded-2xl w-20 text-center'>{category}</p>
                     {status === "public" && <p><span className='font-semibold'>Creator:</span> {creator_name}</p>}
                     <div className="justify-end card-actions">
                         <Link 

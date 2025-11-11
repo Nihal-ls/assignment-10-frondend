@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
@@ -12,6 +12,8 @@ const Myhabits = () => {
     const { user } = use(AuthContext)
     const email = user.email
     const habit = data.find(habit => habit.user_email == email)
+    const [completedHabits, setCompletedHabits] = useState([]);
+
     console.log(habit);
     console.log(data);
     console.log(habit?._id);
@@ -51,29 +53,54 @@ const Myhabits = () => {
         })
     }
 
-    const handleComplete = () => {
-        fetch(`http://localhost:3000/completedHabits`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({...habit, Completed_by: user.email, completed_at: new Date()})
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
+     useEffect(() => {
+          fetch(`http://localhost:3000/habits?email=${user.email}`)
+              .then(res => res.json())
+              .then(data => console.log(data));
+      }, [user.email]);
+      useEffect(() => {
+          fetch(`http://lhost:3000/completedHabits?email=${user.email}`)
+              .then(res => res.json())
+              .then(data => setCompletedHabits(data));
+      }, [user.email]);
+      
+
+    const handleComplete = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/completedHabits`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    habit_id: habit._id,
+                    Completed_by: user.email,
+                })
+            });
+            const result = await response.json();
+            if (response.ok) {
                 Swal.fire({
                     title: "Completed!",
-                    text: "You Have successfully Completed Your Habit,Keep Going",
-                    icon: "success"
-
-
+                    text: result.message,
+                    icon: "success",
                 });
-                Navigate('/myhabits')
-            })
-    }
-
-
+                const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
+                const completedData = await res.json();
+                setCompletedHabits(completedData);
+            } else {
+                Swal.fire({
+                    title: "Oops!",
+                    text: result.message,
+                    icon: "warning",
+                });
+            }
+        } catch (err) {
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again.",
+                icon: "error",
+            });
+            console.error(err);
+        }
+    };
 
 
     if (!habit) {
@@ -91,9 +118,9 @@ const Myhabits = () => {
                 </div>
                 <div className="">
                     <h1 className='text-xl font-bold'>Habit Name:{habit?.habit_name}</h1>
-                    <button 
-                    onClick={handleComplete}
-                    className='btn bg-green-400 rounded-md px-7 mt-3 font-bold text-white'
+                    <button
+                        onClick={handleComplete}
+                        className='btn bg-green-400 rounded-md px-7 mt-3 font-bold text-white'
                     >Mark Complete
                     </button>
                     <Link to={`/updatehabit/${habit._id}`} className='btn bg-primary rounded-md px-7 mt-3 text-white ml-3 font-semibold'>Update</Link>

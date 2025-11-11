@@ -3,6 +3,7 @@ import { useLoaderData, useParams } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 import { FaFire } from 'react-icons/fa';
+import Myhabits from './Myhabits';
 
 const Viewdetails = () => {
     const { id } = useParams()
@@ -111,6 +112,7 @@ const Viewdetails = () => {
                         className="bg-gradient-to-r  from-sky-300 to-blue-400 h-4 rounded-full transition-all duration-500"
                         style={{ width: `${progress}%` }}
                     ></div>
+                   
                 </div>
             </div>
 
