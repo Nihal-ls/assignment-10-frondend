@@ -10,6 +10,7 @@ import Addhabits from "../Page/Addhabits";
 import Myhabits from "../Page/Myhabits";
 import UpdateHabit from "../Page/UpdateHabit";
 import ErrorPage from "../Page/ErrorPage";
+import Spinner from "../Components/Spinner";
 
 const Router = createBrowserRouter([
     {
@@ -67,7 +68,7 @@ const Router = createBrowserRouter([
                 </PrivateRouter>
             },
         ],
-        
+
     },
     {
         path: '/*',

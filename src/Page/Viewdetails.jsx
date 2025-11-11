@@ -21,7 +21,7 @@ const Viewdetails = () => {
             .then(data => setAllHabits(data));
     }, [user.email]);
     useEffect(() => {
-        fetch(`http://localhost:3000/completedHabits?email=${user.email}`)
+        fetch(`http://lhost:3000/completedHabits?email=${user.email}`)
             .then(res => res.json())
             .then(data => setCompletedHabits(data));
     }, [user.email]);
@@ -89,7 +89,7 @@ const Viewdetails = () => {
                     <p className='my-2 bg-primary mt-5 text-white rounded-2xl py-2 w-30 text-center'>{category}</p>
                     {status === "public" ? <p><span className='font-semibold'>Creator:</span> {creator_name}</p> :
                         <p className='font-bold text-lg'>Creator: (Creator Information Is private)</p>
-                    }
+                }
                     {status === "public" ? <p><span className='font-semibold mt-5'>Creator email:</span> {user_email}</p> :
                         <p className='font-bold text-lg mt-5'>Creator: (Creator Information Is private)</p>
                     }

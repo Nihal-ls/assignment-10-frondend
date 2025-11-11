@@ -5,18 +5,23 @@ import { FaClock, FaHeart, FaRegCheckCircle, FaRocket } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router';
 import Habitcard from '../Components/Habitcard';
 import Slider from '../Components/Slider';
+import Spinner from '../Components/Spinner';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Home = () => {
     const data = useLoaderData()
     console.log(data)
+    if (!data) {
+        return <Spinner />
+    }
     return (
         <div>
             <div
                 className=" mt-20"
-               
+
             >
                 <div className="w-full relative h-100 bg-cover bg-no-repeat  flex justify-center flex-col text-center"
-                 style={{ backgroundImage: `url(${bannerbg})` }}
+                    style={{ backgroundImage: `url(${bannerbg})` }}
                 >
                     <motion.h1
                         className="text-4xl font-bold text-blue-400"
@@ -53,37 +58,64 @@ const Home = () => {
                     </div>
                     <div className="card w-80 mx-auto bg-base-100 my-auto  shadow-sm hover:shadow-lg transition-shadow duration-300">
                         <div className="card-body">
-                            <h2 className="card-title"><FaRocket color='blue' size={25}/> Motivation</h2>
+                            <h2 className="card-title"><FaRocket color='blue' size={25} /> Motivation</h2>
                             <p>Visualize your progress to stay motivated and never lose focus.</p>
                         </div>
                     </div>
                     <div className="card w-80 mx-auto bg-base-100 my-auto  shadow-sm hover:shadow-lg transition-shadow duration-300">
                         <div className="card-body">
-                            <h2 className="card-title"><FaHeart  color='red' size={25}/> Wellbeing</h2>
+                            <h2 className="card-title"><FaHeart color='red' size={25} /> Wellbeing</h2>
                             <p>Healthy habits improve your mind and body over time.</p>
                         </div>
                     </div>
                     <div className="card w-80 mx-auto bg-base-100 my-auto  shadow-sm hover:shadow-lg transition-shadow duration-300">
                         <div className="card-body">
-                            <h2 className="card-title"><FaClock color='blue' size={25}/> Productivity</h2>
+                            <h2 className="card-title"><FaClock color='blue' size={25} /> Productivity</h2>
                             <p>Turn small daily actions into big achievements efficiently.</p>
                         </div>
                     </div>
                 </div>
             </div>
-              
-              <div className="Container mx-auto">
+
+            <div className="Container mx-auto">
                 <h1 className='text-center text-3xl font-bold mt-5 '>Featured Habits</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto mt-10 px-30">
                     {
                         data.map(habit => <Habitcard habit={habit}></Habitcard>)
                     }
                 </div>
-               </div>
-               <h1 className='text-center text-3xl font-bold mt-10'>Our Packages</h1>
-              <div>
-                <Slider/>
-              </div>
+            </div>
+
+
+            <div className=" flex my-5 flex-col justify-center items-center  text-center">
+                <h1 className="text-5xl font-bold mb-4">
+                    Build Your Healthy Habits{" "}
+                    <span style={{ color: "#1E3A8A" }}>
+                        <Typewriter
+                            words={["Meditation", "Workout", "Reading", "Coding"]}
+                            loop={0}       
+                            cursor
+                            cursorStyle="|"
+                            typeSpeed={90}
+                            deleteSpeed={30}
+                            delaySpeed={2000}
+                        />
+                    </span>
+                </h1>
+                <p className="text-lg text-gray-600">
+                    Achieve consistency & track your daily progress
+                </p>
+            </div>
+
+
+
+
+
+            <h1 className='text-center text-3xl font-bold mt-10'>Our Packages</h1>
+
+            <div>
+                <Slider />
+            </div>
         </div>
     );
 };
