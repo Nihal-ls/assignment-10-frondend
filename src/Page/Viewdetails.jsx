@@ -2,6 +2,7 @@ import { use, useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { FaFire } from 'react-icons/fa';
 
 const Viewdetails = () => {
     const { id } = useParams()
@@ -30,37 +31,31 @@ const Viewdetails = () => {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    ...clickedhabit,
+                    habit_id: clickedhabit._id,
                     Completed_by: user.email,
-                    completed_at: new Date()
                 })
             });
-
             const result = await response.json();
-
             if (response.ok) {
                 Swal.fire({
                     title: "Completed!",
-                    text: result.message || "You have successfully completed your habit, keep going!",
+                    text: result.message,
                     icon: "success",
                 });
-
                 const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
-                const updated = await res.json();
-                setCompletedHabits(updated);
-
+                const completedData = await res.json();
+                setCompletedHabits(completedData);
             } else {
                 Swal.fire({
                     title: "Oops!",
-                    text: result.message || "You already completed this habit today!",
+                    text: result.message,
                     icon: "warning",
                 });
             }
-
         } catch (err) {
             Swal.fire({
                 title: "Error!",
-                text: "You already completed Today",
+                text: "Something went wrong. Please try again.",
                 icon: "error",
             });
             console.error(err);
@@ -71,6 +66,13 @@ const Viewdetails = () => {
     const completed = completedHabits.length;
     const progress = total > 0 ? (completed / total) * 100 : 0;
 
+    const getHabitStreak = (habitId) => {
+        const habitRecords = completedHabits
+            .filter(h => h.habit_id === habitId)
+            .sort((a, b) => new Date(b.completed_at) - new Date(a.completed_at));
+
+        return habitRecords.length > 0 ? habitRecords[0].streak : 0;
+    };
     return (
         <div>
             <h1 className='text-center text-3xl font-bold mt-10'>Details</h1>
@@ -99,12 +101,14 @@ const Viewdetails = () => {
                     </div>
                 </div>
             </div>
-            {/* progees bar */}
+            <p className="text-2xl  font-semibold text-center  mt-3">
+                Streak For this Habit: <span className='text-red-500 font-bold text-xl flex justify-center items-center gap-2'><FaFire/> {getHabitStreak(clickedhabit._id)} day{getHabitStreak(clickedhabit._id) > 1 ? "s" : ""}</span>
+            </p>
             <div className="w-full max-w-md mx-auto my-6">
                 <h2>Tour Progress: {Math.round(progress)}%</h2>
                 <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                     <div
-                        className="bg-green-500 h-4 rounded-full transition-all duration-500"
+                        className="bg-gradient-to-r  from-sky-300 to-blue-400 h-4 rounded-full transition-all duration-500"
                         style={{ width: `${progress}%` }}
                     ></div>
                 </div>
