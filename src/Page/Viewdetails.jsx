@@ -1,12 +1,60 @@
+import { use, useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
+import Swal from 'sweetalert2';
 
 const Viewdetails = () => {
     const { id } = useParams()
     console.log(id);
+    const { user } = use(AuthContext)
     const data = useLoaderData()
     const clickedhabit = data.find(habit => habit._id == id)
     console.log(clickedhabit);
     const { habit_name, description, _id, user_email, animated_image, category, creator_name, status } = clickedhabit
+
+    const [allHabits, setAllHabits] = useState([]);
+    const [completedHabits, setCompletedHabits] = useState([]);
+
+    // ✅ Fetch all habits
+    useEffect(() => {
+        fetch(`http://localhost:3000/habits?email=${user.email}`)
+            .then(res => res.json())
+            .then(data => setAllHabits(data));
+    }, [user.email]);
+
+    // ✅ Fetch completed habits
+    useEffect(() => {
+        fetch(`http://localhost:3000/completedHabits?email=${user.email}`)
+            .then(res => res.json())
+            .then(data => setCompletedHabits(data));
+    }, [user.email]);
+
+    // ✅ Handle marking complete
+    const handleComplete = async () => {
+        await fetch(`http://localhost:3000/completedHabits`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ...clickedhabit,
+                Completed_by: user.email,
+                completed_at: new Date()
+            })
+        })
+            .then(Swal.fire({
+                title: "Completed!",
+                text: "You have successfully completed your habit, keep going!",
+                icon: "success",
+            }))
+        const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
+        const updated = await res.json();
+        setCompletedHabits(updated);
+
+
+    };
+
+    const total = allHabits.length;
+    const completed = completedHabits.length;
+    const progress = total > 0 ? (completed / total) * 100 : 0;
 
     return (
         <div>
@@ -29,12 +77,24 @@ const Viewdetails = () => {
                         <p className='font-bold text-lg mt-5'>Creator: (Creator Information Is private)</p>
                     }
                     <div className="card-actions justify-end">
-                        <button  className="btn  text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7  mt-5">
-                            <input type="checkbox" />
+                        <button
+                            onClick={handleComplete}
+                            className="btn  text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7  mt-5">
                             Mark As Complete</button>
                     </div>
                 </div>
             </div>
+            {/* progees bar */}
+            <div className="w-full max-w-md mx-auto my-6">
+                <h2>Tour Progress: {Math.round(progress)}%</h2>
+                <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                    <div
+                        className="bg-green-500 h-4 rounded-full transition-all duration-500"
+                        style={{ width: `${progress}%` }}
+                    ></div>
+                </div>
+            </div>
+
         </div>
     );
 };
