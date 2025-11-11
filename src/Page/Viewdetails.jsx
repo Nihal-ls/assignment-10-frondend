@@ -21,7 +21,7 @@ const Viewdetails = () => {
                 <div className="">
                     <h2 className="card-title text-2xl font-bold">Habit Name: {habit_name}</h2>
                     <p className='my-2 mt-3 text-md text-gray-500'>{description}</p>
-                    <p className='my-2 bg-primary/90 mt-5 text-white rounded-2xl py-2 w-30 text-center'>{category}</p>
+                    <p className='my-2 bg-primary mt-5 text-white rounded-2xl py-2 w-30 text-center'>{category}</p>
                     {status === "public" ? <p><span className='font-semibold'>Creator:</span> {creator_name}</p> :
                         <p className='font-bold text-lg'>Creator: (Creator Information Is private)</p>
                     }
@@ -29,7 +29,7 @@ const Viewdetails = () => {
                         <p className='font-bold text-lg mt-5'>Creator: (Creator Information Is private)</p>
                     }
                     <div className="card-actions justify-end">
-                        <button  className="btn btn-primary mt-5">
+                        <button  className="btn  text-white font-bold bg-gradient-to-r  from-sky-300 to-blue-400  px-7  mt-5">
                             <input type="checkbox" />
                             Mark As Complete</button>
                     </div>

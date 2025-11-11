@@ -41,8 +41,8 @@ const Myhabits = () => {
                             text: "Your file has been deleted.",
                             icon: "success"
 
-                           
-                        }); 
+
+                        });
                         Navigate('/myhabits')
                     })
 
@@ -50,9 +50,35 @@ const Myhabits = () => {
             }
         })
     }
-    if(!habit ){
+
+    const handleComplete = () => {
+        fetch(`http://localhost:3000/completedHabits`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({...habit, Completed_by: user.email, completed_at: new Date()})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                Swal.fire({
+                    title: "Completed!",
+                    text: "You Have successfully Completed Your Habit,Keep Going",
+                    icon: "success"
+
+
+                });
+                Navigate('/myhabits')
+            })
+    }
+
+
+
+
+    if (!habit) {
         return <div className='min-h-screen items-center text-center  mt-20'><h1 className='text-3xl font-bold'>You Dont Have Any habit addeded</h1>
-           <Link to='/addhabit' className='btn bg-primary px-10 mt-3 text-white rounded-md'>Add your Habit</Link>
+            <Link to='/addhabit' className='btn font-bold  bg-gradient-to-r  from-sky-300 to-blue-400  px-7  mt-5 hover:scale-110 transition ease-in-out text-white rounded-md'>Add your Habit</Link>
         </div>
     }
     return (
@@ -65,7 +91,11 @@ const Myhabits = () => {
                 </div>
                 <div className="">
                     <h1 className='text-xl font-bold'>Habit Name:{habit?.habit_name}</h1>
-                    <button className='btn bg-green-400 rounded-md px-7 mt-3 font-bold text-white'>Mark Complete</button>
+                    <button 
+                    onClick={handleComplete}
+                    className='btn bg-green-400 rounded-md px-7 mt-3 font-bold text-white'
+                    >Mark Complete
+                    </button>
                     <Link to={`/updatehabit/${habit._id}`} className='btn bg-primary rounded-md px-7 mt-3 text-white ml-3 font-semibold'>Update</Link>
 
                     <button onClick={handleDelete} className='btn bg-transparent rounded-md px-7 mt-3 text-red-500 border-red-500 hover:bg-red-500 hover:text-white ml-3'>Delete</button>

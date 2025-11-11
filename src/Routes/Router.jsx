@@ -9,6 +9,7 @@ import PrivateRouter from "./PrivateRouter";
 import Addhabits from "../Page/Addhabits";
 import Myhabits from "../Page/Myhabits";
 import UpdateHabit from "../Page/UpdateHabit";
+import ErrorPage from "../Page/ErrorPage";
 
 const Router = createBrowserRouter([
     {
@@ -65,7 +66,13 @@ const Router = createBrowserRouter([
                     <UpdateHabit></UpdateHabit>
                 </PrivateRouter>
             },
-        ]
+        ],
+        
+    },
+    {
+        path: '/*',
+        Component: ErrorPage
+
     }
 ])
 export default Router
