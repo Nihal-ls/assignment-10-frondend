@@ -14,42 +14,57 @@ const Viewdetails = () => {
 
     const [allHabits, setAllHabits] = useState([]);
     const [completedHabits, setCompletedHabits] = useState([]);
-
-    // ✅ Fetch all habits
     useEffect(() => {
         fetch(`http://localhost:3000/habits?email=${user.email}`)
             .then(res => res.json())
             .then(data => setAllHabits(data));
     }, [user.email]);
-
-    // ✅ Fetch completed habits
     useEffect(() => {
         fetch(`http://localhost:3000/completedHabits?email=${user.email}`)
             .then(res => res.json())
             .then(data => setCompletedHabits(data));
     }, [user.email]);
-
-    // ✅ Handle marking complete
     const handleComplete = async () => {
-        await fetch(`http://localhost:3000/completedHabits`, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                ...clickedhabit,
-                Completed_by: user.email,
-                completed_at: new Date()
-            })
-        })
-            .then(Swal.fire({
-                title: "Completed!",
-                text: "You have successfully completed your habit, keep going!",
-                icon: "success",
-            }))
-        const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
-        const updated = await res.json();
-        setCompletedHabits(updated);
+        try {
+            const response = await fetch(`http://localhost:3000/completedHabits`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ...clickedhabit,
+                    Completed_by: user.email,
+                    completed_at: new Date()
+                })
+            });
 
+            const result = await response.json();
 
+            if (response.ok) {
+                Swal.fire({
+                    title: "Completed!",
+                    text: result.message || "You have successfully completed your habit, keep going!",
+                    icon: "success",
+                });
+
+                const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
+                const updated = await res.json();
+                setCompletedHabits(updated);
+
+            } else {
+                Swal.fire({
+                    title: "Oops!",
+                    text: result.message || "You already completed this habit today!",
+                    icon: "warning",
+                });
+            }
+
+        } catch (err) {
+            Swal.fire({
+                title: "Error!",
+                text: "You already completed Today",
+                icon: "error",
+            });
+            console.error(err);
+        }
     };
 
     const total = allHabits.length;
