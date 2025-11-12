@@ -79,7 +79,7 @@ const Home = () => {
 
             <div className="Container mx-auto">
                 <h1 className='text-center text-3xl font-bold mt-5 '>Featured Habits</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto mt-10 px-30">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-10 px-30">
                     {
                         data.map(habit => <Habitcard habit={habit}></Habitcard>)
                     }

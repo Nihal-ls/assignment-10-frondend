@@ -26,7 +26,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar sticky bg-base-100 container mx-auto rounded-full py-3 px-6 mt-5 shadow-sm">
+            <div className="navbar  bg-base-100 container mx-auto rounded-full py-3 px-6 mt-5 shadow-sm">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -40,7 +40,7 @@ const Navbar = () => {
                     </div>
                     <div className="items-center flex">
                         <img className='w-[70px]' src={logoImg} alt="" />
-                        <a className="btn btn-ghost text-xl font-bold">
+                        <a className="btn btn-ghost hidden md:inline-block md:text-xl  font-bold">
                             Habit Tracker
                         </a>
                     </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
                                 </div>
                             </div>
                             :
-                            <div className="space-x-2">
+                            <div className="sm:space-x-0 md:space-x-2  flex">
                                 <Link to='/login'>
                                     <button className="btn  px-7 hover:text-white hover:font-bold hover:bg-gradient-to-r  from-sky-300 to-blue-400   ">Login</button>
                                 </Link>

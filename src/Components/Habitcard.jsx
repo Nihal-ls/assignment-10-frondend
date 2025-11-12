@@ -6,8 +6,10 @@ const Habitcard = ({ habit }) => {
    const shortText = description.split(" ").slice(0, 10).join(" ") + "...";
   console.log(shortText);
     return (
-        <div>
-            <div className="card pt-10 px-5 bg-base-100 lg:h-90 card-md shadow-sm overflow-hidden m-5  hover:scale-105 transition ease-in-out hover:shadow-xl">
+        <div className='flex justify-center '>
+            <div className=" pt-10 w-80 mx-auto md:px-5  bg-base-100 lg:h-90 card-md shadow-sm  m-5 
+                  
+            hover:scale-105 transition ease-in-out hover:shadow-xl">
                <div className="flex flex-col items-center lg:flex-row  ">
                 <div className=" ">
                 <img className='w-[300px] mx-auto mt-2 rounded-lg mr-4' src={animated_image} alt="" />
