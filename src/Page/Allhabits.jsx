@@ -20,7 +20,7 @@ const Allhabits = () => {
       e.preventDefault()
       const searchedtext = e.target.search.value
 
-      fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/search?search=${searchedtext}`)
+      fetch(`https://assignment-10-server-seven-nu.vercel.app/search?search=${searchedtext}`)
          .then(res => res.json())
          .then(data => {
             setData(data);
@@ -33,14 +33,14 @@ const Allhabits = () => {
       const category = e.target.value
 
       if (category == 'Default') {
-         fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/habits')
+         fetch('https://assignment-10-server-seven-nu.vercel.app/habits')
             .then(res => res.json())
             .then(data => setData(data))
          return
 
       }
 
-      fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/filter?filter=${category}`)
+      fetch(`https://assignment-10-server-seven-nu.vercel.app/filter?filter=${category}`)
          .then(res => res.json()
             .then(data => {
                setData(data)

@@ -17,18 +17,18 @@ const Viewdetails = () => {
     const [allHabits, setAllHabits] = useState([]);
     const [completedHabits, setCompletedHabits] = useState([]);
     useEffect(() => {
-        fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/habits?email=${user.email}`)
+        fetch(`https://assignment-10-server-seven-nu.vercel.app/habits?email=${user.email}`)
             .then(res => res.json())
             .then(data => setAllHabits(data));
     }, [user.email]);
     useEffect(() => {
-        fetch(`http://lhost:3000/completedHabits?email=${user.email}`)
+        fetch(`https://assignment-10-server-seven-nu.vercel.app/completedHabits?email=${user.email}`)
             .then(res => res.json())
             .then(data => setCompletedHabits(data));
     }, [user.email]);
     const handleComplete = async () => {
         try {
-            const response = await fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/completedHabits`, {
+            const response = await fetch(`https://assignment-10-server-seven-nu.vercel.app/completedHabits`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -43,7 +43,7 @@ const Viewdetails = () => {
                     text: result.message,
                     icon: "success",
                 });
-                const res = await fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/completedHabits?email=${user.email}`);
+                const res = await fetch(`https://assignment-10-server-seven-nu.vercel.app/completedHabits?email=${user.email}`);
                 const completedData = await res.json();
                 setCompletedHabits(completedData);
             } else {
