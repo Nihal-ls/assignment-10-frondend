@@ -28,7 +28,7 @@ const Myhabits = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/habits/${habit?._id}`, {
+                fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/habits/${habit?._id}`, {
                     method: 'DELETE',
                     headers: {
                         "Content-Type": "application/json",
@@ -54,12 +54,12 @@ const Myhabits = () => {
     }
 
      useEffect(() => {
-          fetch(`http://localhost:3000/habits?email=${user.email}`)
+          fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/habits?email=${user.email}`)
               .then(res => res.json())
               .then(data => console.log(data));
       }, [user.email]);
       useEffect(() => {
-          fetch(`http://lhost:3000/completedHabits?email=${user.email}`)
+          fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/completedHabits?email=${user.email}`)
               .then(res => res.json())
               .then(data => setCompletedHabits(data));
       }, [user.email]);
@@ -67,7 +67,7 @@ const Myhabits = () => {
 
     const handleComplete = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/completedHabits`, {
+            const response = await fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/completedHabits`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -82,7 +82,7 @@ const Myhabits = () => {
                     text: result.message,
                     icon: "success",
                 });
-                const res = await fetch(`http://localhost:3000/completedHabits?email=${user.email}`);
+                const res = await fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/completedHabits?email=${user.email}`);
                 const completedData = await res.json();
                 setCompletedHabits(completedData);
             } else {

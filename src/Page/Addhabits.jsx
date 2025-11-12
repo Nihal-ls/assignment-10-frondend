@@ -20,7 +20,7 @@ const Addhabits = () => {
 
         }
         console.log(formData.category);
-        fetch('http://localhost:3000/Habits', {
+        fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

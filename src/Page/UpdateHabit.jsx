@@ -23,7 +23,7 @@ const UpdateHabit = () => {
 
         }
         console.log(formData.category);
-        fetch(`http://localhost:3000/Habits/${id}`, {
+        fetch(`https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits/${id}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"

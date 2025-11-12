@@ -19,13 +19,13 @@ const Router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader: () => fetch('http://localhost:3000/featuredHabits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/featuredHabits'),
                 Component: Home,
 
             },
             {
                 path: '/all-habits',
-                loader: () => fetch('http://localhost:3000/Habits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits'),
                 Component: Allhabits,
 
             },
@@ -41,28 +41,28 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/view-details/:id',
-                loader: () => fetch('http://localhost:3000/Habits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits'),
                 element: <PrivateRouter>
                     <Viewdetails />
                 </PrivateRouter>
             },
             {
                 path: '/addhabit',
-                loader: () => fetch('http://localhost:3000/Habits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits'),
                 element: <PrivateRouter>
                     <Addhabits />
                 </PrivateRouter>
             },
             {
                 path: '/myhabits',
-                loader: () => fetch('http://localhost:3000/Habits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits'),
                 element: <PrivateRouter>
                     <Myhabits />
                 </PrivateRouter>
             },
             {
                 path: '/updatehabit/:id',
-                loader: () => fetch('http://localhost:3000/Habits'),
+                loader: () => fetch('https://assignment-10-server-nihal-ls-nihal-ls-projects.vercel.app/Habits'),
                 element: <PrivateRouter>
                     <UpdateHabit></UpdateHabit>
                 </PrivateRouter>
